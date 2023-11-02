@@ -31,7 +31,7 @@ Here are the official links and resources for the project:
 
 ### Trello Link
 
-Thank you for your contribution to the Furniture E-Commerce website project. Together, we can create an exceptional online shopping experience for furniture enthusiasts!
+Thank you for your contribution to the CraftVine website project. Together, we can create an exceptional online shopping experience for furniture enthusiasts!
 
 
 
