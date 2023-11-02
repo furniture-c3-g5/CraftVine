@@ -1,6 +1,5 @@
 const express = require("express")
-const productsRoter = require("./routes/routes")
-// const createNewProductRoter = require("./routes/routes")
+const productsRoutes = require("./routes/productsRoute")
 const multer = require("multer")
 const path = require("path")
 
@@ -8,8 +7,7 @@ const app = express()
 const port = 5000
 
 app.use(express.json())
-app.use("/products", productsRoter)
-// app.use("/createNewProduct", createNewProductRoter)
+app.use("/products", productsRoutes)
 
 // Storage Image By Multer Start
 const storage = multer.diskStorage({
@@ -24,9 +22,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 // Storage Image By Multer End
 
-app.post("/Add_Product", upload.single("image"), (req, res) => {
-  res.send("image uploaded")
-})
+// app.post("/Add_Product", upload.single("image"), (req, res) => {
+//   res.send("image uploaded")
+// })
 
 app.listen(port, () => {
   console.log(`Server Run On Port ${port}`)
