@@ -9,6 +9,11 @@ const Register = () => {
   const [cookies, setCookie] = useCookies(['token']);
 
   const handleSignIn = async () => {
+    if (!email || !password) {
+      setError("Email and password are required.");
+      return;
+    }
+
     try {
       const response = await axios.post("YOUR_API_ENDPOINT", {
         email: email,
@@ -56,15 +61,16 @@ const Register = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-          </div><br/>
+          </div>
+          {error && <p className="text-red-500 transition delay-150 duration-300 ease-in-out">{error}</p>}
+          <br/><br/>
           <button
             onClick={handleSignIn}
-            className="w-50 rounded-3xl py-4 font-semibold text-white transition-colors bg-teal-600 hover:bg-teal-400 focus:outline-none focus:ring-offset-2 focus:ring focus:ring-neutral-200 px-7 dark:bg-white dark:text-black"
+            className="w-full p-2 bg-teal-600 text-white rounded-3xl mt-4"
           >
             SignIn
           </button>
-          {error && <p className="text-red-500 transition delay-150 duration-300 ease-in-out">{error}</p>}
-          <br/> <br/>
+          <br/><br/>
           <p className="text-center text-sm text-gray-500">Don't have an account yet?
             <a href="#!"
               className="font-semibold text-gray-600 hover:underline focus:text-gray-800 focus:outline-none">Sign up
