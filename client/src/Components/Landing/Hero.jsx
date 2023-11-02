@@ -105,7 +105,7 @@ const Hero = () => {
                 data-carousel-item=""
               >
                 <div className="w-full h-full absolute top-0 bottom-0 right-0 left-0 flex flex-col justify-center items-center md:items-end">
-                    <div className="bg-[#00808098] flex flex-col justify-center items-center mx-16 md:mx-24 rounded-xl">
+                    <div className="bg-[#0538385c] flex flex-col justify-center items-center mx-16 md:mx-24 rounded-xl">
                         <div className="m-3 p-3">
                             <h1 className="text-white text-2xl font-bold md:text-4xl my-3">Discover Our New Collection</h1>
                             <h3 className="text-white text-lg md:text-2xl my-3">Unveil the Newest Arrivals to Elevate Your Space</h3>
