@@ -1,6 +1,6 @@
 const express = require("express")
-const productsRoter = require("./Routes/routes")
-const createNewProductRoter = require("./Routes/routes")
+const productsRoter = require("./routes/routes")
+const createNewProductRoter = require("./routes/routes")
 const multer = require("multer")
 const path = require("path")
 
