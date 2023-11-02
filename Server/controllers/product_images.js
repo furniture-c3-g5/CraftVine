@@ -1,17 +1,16 @@
-const pool = require("../db")
-const queries = require("../models/models")
+const pool = require("../models/db")
 
 //_____________________________________________________________________________
 //________________________get all Products Start_________________________________
 //_____________________________________________________________________________--
 const getProducts = (req, res) => {
-  pool.query(queries.getProducts, (error, result) => {
+  pool.query("INSERT INTO products (product_name, category, price, rating, description, quantity) VALUES ($1, $2, $3, $4, $5, $6"), (error, result) => {
     if(error) {
       throw error
     } else {
       res.status(200).json(result.rows)
     }
-  })
+  }
 }
 //_____________________________________________________________________________
 //________________________get all Products End_________________________________
@@ -21,7 +20,7 @@ const getProducts = (req, res) => {
 //_____________________________________________________________________________
 const createNewProduct = (req, res) => {
   const { product_name, category, price, rating, description, quantity } = req.body
-  pool.query(queries.createNewProduct, [ product_name, category, price, rating, description,  quantity ] , (error, result) => {
+  pool.query("SELECT * FROM products", [ product_name, category, price, rating, description,  quantity ] , (error, result) => {
     if(error) { 
       throw error
     } else {
