@@ -90,41 +90,50 @@ const Hero = () => {
                 className="w-full h-[500px] bg-cover bg-[50%] bg-[url('https://afhomeph.com/cdn/shop/files/Website_Banner_Direct_from_the_Factory_1.png?v=1685417210&width=2800')]"
                 data-carousel-item=""
               >
-                <div className="w-full h-full absolute top-0 bottom-0 right-0 left-0 bg-[#3f3f3f5c] flex flex-col">
-                    
+                <div className="w-full h-full absolute top-0 bottom-0 right-0 left-0 bg-[#3f3f3f5c] flex flex-col justify-center items-center">
+                    <div className="m-3 w-2/3">
+                        <h1 className="text-white text-2xl font-bold md:text-4xl my-3">Save Big with Our 50% Off Furniture Sale!</h1>
+                        <button className="bg-teal-600 rounded-full text-white my-3 px-10 py-2">Shop Now</button>
+                    </div>
                 </div>
-                {/* <img
-                  src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZnVybml0dXJlfGVufDB8fDB8fHww"
-                  className="h-[500px] w-full object-cover bg-[50%]"
-                  alt=""
-                /> */}
               </div>
             )}
             {currentSlide === 3 && (
               /* <!-- Item 3 --> */
               <div
-                className="w-full _rQfu5s_ozvMmIHvaipS sNk1Ftxlo5_azsr1wF3F _Qk4_E9_iLqcHsRZZ4ge iZ8W30HPRQAuO6al90LU EDIXK1RoLh9IsTGzcUBT yvRWkoRx_Apshie5g15o B_Mg78Zl0_AuSOcVLMGS si0W4yw4peoOpbmHOl83 _v8hjA9ct_v6OhSQD7fC j2x7_17hqRVmwte_tWFa"
+                className="w-full h-[500px] bg-cover bg-[50%] bg-[url('https://img.freepik.com/free-photo/gray-sofa-brown-living-room-with-copy-space_43614-954.jpg')]"
                 data-carousel-item=""
               >
-                <img
-                  src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/ngo-carousel/image-3.jpg"
-                  className="h-[500px] w-full"
-                  alt=""
-                />
+                <div className="w-full h-full absolute top-0 bottom-0 right-0 left-0 flex flex-col justify-center items-center md:items-end">
+                    <div className="bg-[#00808098] flex flex-col justify-center items-center mx-16 md:mx-24 rounded-xl">
+                        <div className="m-3 p-3">
+                            <h1 className="text-white text-2xl font-bold md:text-4xl my-3">Discover Our New Collection</h1>
+                            <h3 className="text-white text-lg md:text-2xl my-3">Unveil the Newest Arrivals to Elevate Your Space</h3>
+                            <button className="bg-teal-600 rounded-full text-white my-3 px-10 py-2">Shop Now</button>
+                        </div>
+                    </div>
+                </div>
               </div>
             )}
             {currentSlide === 4 && (
               /* <!-- Item 4 --> */
               <div
-                className="w-full _rQfu5s_ozvMmIHvaipS sNk1Ftxlo5_azsr1wF3F _Qk4_E9_iLqcHsRZZ4ge iZ8W30HPRQAuO6al90LU EDIXK1RoLh9IsTGzcUBT yvRWkoRx_Apshie5g15o B_Mg78Zl0_AuSOcVLMGS si0W4yw4peoOpbmHOl83 _v8hjA9ct_v6OhSQD7fC j2x7_17hqRVmwte_tWFa"
+                className="w-full h-[500px] bg-cover bg-[50%] bg-[url('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1469&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]"
                 data-carousel-item=""
               >
-                <img
-                  src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/ngo-carousel/image-4.jpg"
-                  className="h-[500px] w-full"
-                  alt=""
-                />
+                <div className="w-full h-full absolute top-0 bottom-0 right-0 left-0 bg-[#3f3f3f5c] flex flex-col justify-center items-center">
+                </div>
               </div>
+            //   <div
+            //     className="w-full _rQfu5s_ozvMmIHvaipS sNk1Ftxlo5_azsr1wF3F _Qk4_E9_iLqcHsRZZ4ge iZ8W30HPRQAuO6al90LU EDIXK1RoLh9IsTGzcUBT yvRWkoRx_Apshie5g15o B_Mg78Zl0_AuSOcVLMGS si0W4yw4peoOpbmHOl83 _v8hjA9ct_v6OhSQD7fC j2x7_17hqRVmwte_tWFa"
+            //     data-carousel-item=""
+            //   >
+            //     <img
+            //       src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1469&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            //       className="h-[500px] w-full object-cover"
+            //       alt=""
+            //     />
+            //   </div>
             )}
 
             {/* buttons */}
