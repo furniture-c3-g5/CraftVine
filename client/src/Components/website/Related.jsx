@@ -2,9 +2,24 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const ExploreProducts = () => {
+const Related = (category) => {
   const [quantity, setQuantity] = useState(2);
   const [products, setProducts] = useState([]);
+  
+  // fetch products
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/products")
+      .then((response) => {
+        const allProducts = response.data;
+        const chairsProducts = allProducts.filter(product => product.category === "Chairs");
+        setProducts(chairsProducts);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
+
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,23 +49,10 @@ const ExploreProducts = () => {
   };
   // end of pagination
 
-  // fetch products
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/products")
-      .then((response) => {
-        // Handle the response data here
-        setProducts(response.data);
-      })
-      .catch((error) => {
-        // Handle errors here
-        console.error("Error:", error);
-      });
-  }, []);
-
+  console.log(products);
   return (
     <div className="my-16">
-      <h1 className="text-teal-600 text-4xl font-bold">Explore Our Products</h1>
+      <h1 className="text-teal-600 text-4xl font-bold">Related Products</h1>
       <div className="relative flex flex-wrap gap-7 justify-center items-center mx-16">
         {currentItems.map((product, id) => (
           <div key={id} className="group my-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
@@ -68,7 +70,6 @@ const ExploreProducts = () => {
                 src={product.image[1]}
                 alt="product image"
               />
-              {/* <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span> */}
             </Link>
             <div className="mt-4 px-5 pb-5">
               <a href="#">
@@ -78,7 +79,6 @@ const ExploreProducts = () => {
               </a>
               <div className="mt-2 mb-5 flex items-center justify-between">
                 <p>
-                  {/* <span className="text-3xl font-bold  line-through text-teal-600">${product.price}</span> */}
                   <span className="text-lg font-bold text-slate-900">
                     ${product.price}
                   </span>
@@ -143,6 +143,7 @@ const ExploreProducts = () => {
   );
 };
 
-export default ExploreProducts;
+export default Related;
 
 // function to add items to cart
+// need a category props
