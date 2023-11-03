@@ -1,11 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from '../Images/logo.png'
+import logo from '../../Images/logo.png'
 
 const Footer = () => {
+  const user = null;
+  // const user = "hello"
+
   return (
     <footer className="bg-neutral-100 text-center text-neutral-600 dark:bg-neutral-600 dark:text-neutral-200 lg:text-left">
-      <div className="flex items-center justify-center border-b-2 border-neutral-200 p-6 dark:border-neutral-500">
+      <div className={`${user !== null? 'hidden': 'flex'} items-center justify-center border-b-2 border-neutral-200 p-6 dark:border-neutral-500`}>
         <div className="">
           <span>Get 10% off your first order: <Link to='/login' className="font-bold">Log In</Link> / <Link to='/signup' className="font-bold">Register</Link></span>
         </div>
@@ -92,7 +95,7 @@ const Footer = () => {
           </div>
           {/* Products section */}
           <div className="">
-            <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start">
+            <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-teal-600">
               Explore
             </h6>
             <p className="mb-4">
@@ -108,15 +111,15 @@ const Footer = () => {
           </div>
           {/* Useful links section */}
           <div className="">
-            <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start">
+            <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-teal-600">
               Useful links
             </h6>
             <p className="mb-4">
-              <a href="#!" className="text-neutral-600 dark:text-neutral-200">
+              <Link to={user !== null? '/profile' : '/login'} className="text-neutral-600 dark:text-neutral-200">
                 Account
-              </a>
+              </Link>
             </p>
-            <p>
+            <p className="mb-4">
               <a href="#!" className="text-neutral-600 dark:text-neutral-200">
                 Wishlist
               </a>
@@ -134,7 +137,7 @@ const Footer = () => {
           </div>
           {/* Contact section */}
           <div>
-            <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start">
+            <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-teal-600">
               About Us
             </h6>
             <p className="mb-4 flex items-center justify-center md:justify-start">
@@ -159,15 +162,18 @@ const Footer = () => {
       {/* Copyright section */}
       <div className="bg-[#0d79795c] p-6 text-center dark:bg-[#2d54545c]">
         <span>© 2023 Copyright:</span>
-        <a
+        <Link
           className="font-semibold text-neutral-600 dark:text-neutral-400"
-          href="https://tw-elements.com/"
+          to='/'
         >
-          TW elements
-        </a>
+          CraftVine
+        </Link>
       </div>
     </footer>
   );
 };
 
 export default Footer;
+
+// links not working 
+// and account link must lead to profile if logged in and login page otherwise
