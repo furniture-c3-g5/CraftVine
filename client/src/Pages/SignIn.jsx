@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
-
-const Register = () => {
+// import { GoogleLogin } from 'react-google-login';
+const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -35,6 +35,24 @@ const Register = () => {
         setError("Sign-in failed. Please check your credentials.");
       }, 300);
     }
+    // const responseGoogle = async (response) => {
+    //   if (response.error) {
+    //     setError("Google Sign-In failed. Please try again.");
+    //   } else {
+    //     try {
+    //       // Send the Google OAuth response to your server for verification
+    //       const googleResponse = await axios.post("YOUR_BACKEND_ENDPOINT", {
+    //         idToken: response.tokenId,
+    //       });
+  
+    //       // Handle the response from your server and set cookies or redirect
+    //       // based on your application's requirements
+    //       console.log("Google Sign-In successful:", googleResponse.data);
+    //     } catch (error) {
+    //       console.error("Google Sign-In error:", error);
+    //       setError("Google Sign-In failed. Please try again.");
+    //     }
+    //   }
   };
 
   return (
@@ -66,7 +84,7 @@ const Register = () => {
           <br/><br/>
           <button
             onClick={handleSignIn}
-            className="w-full p-2 bg-teal-600 text-white rounded-3xl mt-4"
+            className="w-full p-2 bg-teal-600 text-white rounded-3xl mt-4 hover:bg-teal-400"
           >
             SignIn
           </button>
@@ -77,11 +95,32 @@ const Register = () => {
             </a>.
           </p>
           <br/>
-          <a href="#" className="transform text-center font-semibold text-gray-500 duration-300 hover:text-gray-300">FORGOT PASSWORD?</a>
+         <a href='/auth/google'><div className="flex items-center justify-center  dark:bg-gray-800">
+  <button className="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150  hover:bg-teal-15">
+    <img
+      className="w-6 h-6"
+      src="https://www.svgrepo.com/show/475656/google-color.svg"
+      loading="lazy"
+      alt="google logo"
+    />
+    <span>Login with Google</span>
+  </button>
+</div></a> 
+
+          {/* <a href="#" className="transform text-center font-semibold text-gray-500 duration-300 hover:text-gray-300">FORGOT PASSWORD?</a> */}
+          {/* <div className="my-4">
+        <GoogleLogin
+          clientId="YOUR_GOOGLE_CLIENT_ID"
+          buttonText="Sign In with Google"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={'single_host_origin'}
+        />
+      </div> */}
         </div>
       </div>
     </div>
   );
 }
 
-export default Register;
+export default SignIn;
