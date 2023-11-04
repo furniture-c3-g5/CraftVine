@@ -1,11 +1,27 @@
+
+const express = require("express");
+const app = express();
+const session = require("express-session");
+const passport = require("passport");
+app.use(express.json());
+var cors = require("cors");
+app.use(cors());
+=======
 const express = require("express")
 const productsRoutes = require("./routes/productsRoute")
 const multer = require("multer")
 const path = require("path")
 
-const app = express()
-const port = 5000
 
+
+
+
+const user_router = require("./routes/users_route");
+const google_router = require("./routes/google_route");
+
+app.use(user_router);
+app.use(google_router);
+=======
 app.use(express.json())
 app.use("/products", productsRoutes)
 
@@ -29,4 +45,6 @@ const upload = multer({ storage: storage });
 app.listen(port, () => {
   console.log(`Server Run On Port ${port}`)
 })
+
+
 
