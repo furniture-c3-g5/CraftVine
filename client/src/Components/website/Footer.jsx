@@ -115,7 +115,7 @@ const Footer = () => {
               Useful links
             </h6>
             <p className="mb-4">
-              <Link to={user !== null? '/profile' : '/login'} className="text-neutral-600 dark:text-neutral-200">
+              <Link to={user !== null? '/account' : '/login'} className="text-neutral-600 dark:text-neutral-200">
                 Account
               </Link>
             </p>
@@ -160,7 +160,7 @@ const Footer = () => {
       </div>
 
       {/* Copyright section */}
-      <div className="bg-[#0d79795c] p-6 text-center dark:bg-[#2d54545c]">
+      <div className="bg-[#0d79635c] p-6 text-center dark:bg-[#2d54545c]">
         <span>© 2023 Copyright:</span>
         <Link
           className="font-semibold text-neutral-600 dark:text-neutral-400"
@@ -176,4 +176,3 @@ const Footer = () => {
 export default Footer;
 
 // links not working 
-// and account link must lead to profile if logged in and login page otherwise

@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const ExploreProducts = () => {
-  const [quantity, setQuantity] = useState(2);
+  // const [quantity, setQuantity] = useState(2);
   const [products, setProducts] = useState([]);
 
   // pagination
@@ -48,12 +48,13 @@ const ExploreProducts = () => {
       });
   }, []);
 
+
   return (
     <div className="my-16">
-      <h1 className="text-teal-600 text-4xl font-bold">Explore Our Products</h1>
+      <h1 className="text-teal-600 text-4xl mb-6 font-bold">Explore Our Products</h1>
       <div className="relative flex flex-wrap gap-7 justify-center items-center mx-16">
         {currentItems.map((product, id) => (
-          <div key={id} className="group my-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
+          <div key={id} className="group my-2 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
             <Link
               className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl"
               to="/"

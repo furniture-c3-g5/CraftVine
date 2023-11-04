@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
-  const user = null;
-  // const user = "hello"
+  // const user = null;
+  const user = "hello"
 
   return (
-    <header>
+    <header className="border-b">
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
         <div className="max-w-screen flex flex-wrap items-center justify-between mx-auto p-4">
           {/* logo img */}
@@ -74,12 +74,12 @@ const Navbar = () => {
               <button
                 type="button"
                 className="inline-flex mx-1 md:mx-3 items-center px-6 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                aria-controls="navbar-search"
+                aria-controls="navbar-cart"
                 aria-expanded={isMenuOpened}
               >
-                <div class="relative">
-                  <div class={`${user === null? 'hidden': 'block'} t-0 absolute left-3`}>
-                    <p class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
+                <div className="relative">
+                  <div className={`${user === null? 'hidden': 'block'} t-0 absolute left-3`}>
+                    <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
                       3
                     </p>
                   </div>
@@ -89,7 +89,7 @@ const Navbar = () => {
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
                     stroke="currentColor"
-                    class={`file: h-6 w-6${user !== null? 'mt-4': 'mt-0'}`}
+                    className={`file: h-6 w-6 ${user !== null? 'mt-4': 'mt-0'}`}
                   >
                     <path
                       stroke-linecap="round"
@@ -131,8 +131,8 @@ const Navbar = () => {
               <button className="bg-teal-600 rounded-full text-white h-10 px-4">Signin/Signup</button>
             </Link>
             {/* profile img */}
-            <Link to='/profile' className={`${user === null? 'hidden': 'block'}`}>
-              <img className="rounded-full h-10 w-10 ml-3" src="https://hypixel.net/attachments/2475043/" alt="Profile"/>
+            <Link to='/account' className={`${user === null? 'hidden': 'block'}`}>
+              <img className="rounded-full h-10 w-10 ml-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ9ka6C2Dg57POea71oMW0poPA8jtjGDWacddi1Eg&s" alt="Profile"/>
             </Link>
           </div>
           <div
@@ -215,7 +215,6 @@ const Navbar = () => {
 export default Navbar;
 
 
-// profile picture and signin/signup button
 // links are not assigned to anywhere
 // cart icon should have number if its not empty and nothing otherwhise 
 // search is not working
