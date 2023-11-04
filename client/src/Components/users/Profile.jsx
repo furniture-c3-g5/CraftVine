@@ -1,14 +1,26 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-// import Pfp from "./Pfp";
+import Cookies from 'js-cookie';
+import jwt from 'jsonwebtoken';
 
 const Profile = () => {
   const [user, setUser] = useState([]);
 
-  // fetch products
+  // fetch user data
+  useEffect(() => {
+    const token = Cookies.get('token');
+    if (token) {
+      const decodedToken = jwt.decode(token);
+      if (decodedToken) {
+        const user_id = decodedToken.user_id;
+        setUserId(user_id);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     axios
-      .get("http://localhost:5000/users/1")
+      .get(`http://localhost:5000/user/${user_id}`)
       .then((response) => {
         setUser(response.data);
       })
@@ -86,7 +98,7 @@ const Profile = () => {
       console.log(updatedUser);
       try {
         const response = await axios.put(
-          `http://localhost:5000/users/${user.id}`,
+          `http://localhost:5000/updateuser/`,
           updatedUser
         );
         console.log(response.data);
@@ -99,7 +111,7 @@ const Profile = () => {
   return (
     <div>
       <div className="flex justify-center items-center">
-        <div className="w-2/3 bg-[#0d79635c] m-6 px-10 py-5 rounded-lg">
+        <div className="w-2/3 bg-[#0d79635c] my-6 md:ml-24 px-10 py-5 rounded-lg">
           <form action="post">
             <div className="flex flex-col md:flex-row flex-wrap justify-around">
               <div>

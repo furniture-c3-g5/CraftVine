@@ -31,6 +31,10 @@ const Account = () => {
   //         reader.readAsDataURL(user.profile_image_name);}
   // }, [user.profile_image_name]);
 
+  function logout(){
+
+  }
+
   // to open and close sidebar
   const [isSideOpen, setIsSideOpen] = useState(true);
   const [position, setPosition] = useState("left-0");
@@ -48,8 +52,10 @@ const Account = () => {
     <div className="flex flex-wrap">
       {/* sidebar */}
       <div className="relative w-[260px] h-full">
-        <div className={`peer absolute top-0 border ${position} lg:left-0 h-full w-full object-cover transition-all delay-100 duration-1000`}>
-        <button
+        <div
+          className={`peer absolute top-0 border ${position} lg:left-0 h-full w-full object-cover transition-all delay-100 duration-1000`}
+        >
+          <button
             aria-label="toggle sidebar"
             id="openSideBar"
             className={`${
@@ -106,7 +112,7 @@ const Account = () => {
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
           </button>
-          <aside className="flex flex-col w-64 h-screen px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
+          <aside className="flex flex-col w-64 h-auto px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
             <div className="w-auto h-12 flex justify-around items-center mx-6">
               <img
                 className={`rounded-full w-1/4 ${
@@ -152,14 +158,11 @@ const Account = () => {
                     <span className="mx-2 text-sm font-medium">Profile</span>
                   </button>
 
-                  <a
-                    className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-                    href="#"
-                  >
+                  <button className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
                     <span className="mx-2 text-sm font-medium">
                       Payment Options
                     </span>
-                  </a>
+                  </button>
                 </div>
 
                 <div className="space-y-3 ">
@@ -167,26 +170,17 @@ const Account = () => {
                     Orders
                   </label>
 
-                  <a
-                    className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-                    href="#"
-                  >
+                  <button className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
                     <span className="mx-2 text-sm font-medium">Orders</span>
-                  </a>
+                  </button>
 
-                  <a
-                    className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-                    href="#"
-                  >
+                  <button className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
                     <span className="mx-2 text-sm font-medium">Returns</span>
-                  </a>
+                  </button>
 
-                  <a
-                    className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-                    href="#"
-                  >
+                  <button className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
                     <span className="mx-2 text-sm font-medium">Canceled</span>
-                  </a>
+                  </button>
                 </div>
 
                 <div className="space-y-3 ">
@@ -194,19 +188,34 @@ const Account = () => {
                     Wishlist
                   </label>
 
-                  <a
-                    className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-                    href="#"
-                  >
+                  <button className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
                     <span className="mx-2 text-sm font-medium">Wishlist</span>
-                  </a>
+                  </button>
 
-                  <a
-                    className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-                    href="#"
-                  >
+                  <button className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
                     <span className="mx-2 text-sm font-medium">Cart</span>
-                  </a>
+                  </button>
+                </div>
+                <div className="space-y-3 ">
+                  <button
+                    className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+                    onClick={logout}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                      class="h-5 w-5"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M12 2.25a.75.75 0 01.75.75v9a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM6.166 5.106a.75.75 0 010 1.06 8.25 8.25 0 1011.668 0 .75.75 0 111.06-1.06c3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788a.75.75 0 011.06 0z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                    <span className="mx-2 text-sm font-medium">Log Out</span>
+                  </button>
                 </div>
               </nav>
             </div>
