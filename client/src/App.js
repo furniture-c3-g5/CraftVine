@@ -1,23 +1,33 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import { AuthProvider } from './Context/AuthContext';
 import './App.css';
+import Home from './Pages/Home';
+import Footer from './Components/website/Footer';
+import Navbar from './Components/website/Navbar';
+import NotFound from './Components/website/NotFound';
+import Account from './Pages/Account';
+// import Register from './Pages/Signup';
+// import SignIn from './Pages/SignIn';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        {/* <AuthProvider> */}
+          <Navbar />
+          <div className='h-full'>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            {/* <Route path='/signup' element={<Register />} />
+            <Route path='/login' element={<SignIn />} /> */}
+            <Route path="/account" element={<Account />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          </div>
+          <Footer />
+        {/* </AuthProvider> */}
+      </Router>
     </div>
   );
 }
