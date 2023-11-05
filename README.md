@@ -27,11 +27,11 @@ Here are the key technologies and tools used in this project:
 
 # Official Links
 Here are the official links and resources for the project:
-### Figma Link
-
-### Trello Link
-
-Thank you for your contribution to the CraftVine website project. Together, we can create an exceptional online shopping experience for furniture enthusiasts!
+### 
+[Figma Link](https://www.figma.com/file/YU5mFWJjbYbziqKYS2QuGO/CraftVine.com?type=design&node-id=16-945&mode=design&t=D6j8lo2o0uhYUTNo-0)
+###
+[Trello Link](https://trello.com/b/udXKXvjc/craftvine)
+Thank you for your contribution to the Furniture E-Commerce website project. Together, we can create an exceptional online shopping experience for furniture enthusiasts!
 
 
 
