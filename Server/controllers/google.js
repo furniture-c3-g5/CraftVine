@@ -42,11 +42,14 @@ exports.protected =
           };
 
           const secretKey = process.env.SECRET_KEY;
-          const token = jwt.sign(payload, secretKey, { expiresIn: "7d" });
+          const token = jwt.sign(payload, secretKey, { expiresIn: "1h" });
           res.status(200).json({
             message: "User added successfully",
             token: token,
           });
+          // setTimeout(() => {
+          //   res.redirect("http://localhost:3000/");
+          // }, 0);
         } else {
           const user_role = "user";
           const created_at = new Date();
@@ -75,9 +78,12 @@ exports.protected =
           const secretKey = process.env.SECRET_KEY;
           const token = jwt.sign(payload, secretKey, { expiresIn: "7d" });
           res.status(200).json({
-            message: "User added successfully",
+            logmessage: "User added successfully",
             token: token,
           });
+          // setTimeout(() => {
+          //   res.redirect("http://localhost:3000/");
+          // }, 0);
         }
       } catch (error) {
         console.error("Error saving user information to PostgreSQL:", error);

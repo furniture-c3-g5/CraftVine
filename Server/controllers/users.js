@@ -109,7 +109,7 @@ exports.loginUser = async (req, res) => {
         first_name: checked.rows[0].first_name,
         last_name: checked.rows[0].last_name,
         email: checked.rows[0].email,
-        role: checked.rows[0].role,
+        role: checked.rows[0].user_role,
         user_id: checked.rows[0].user_id,
       };
       const secretKey = process.env.SECRET_KEY;
@@ -129,10 +129,72 @@ exports.loginUser = async (req, res) => {
 // ----------------------------------------------------------------user details-----------------------------------------------
 exports.getUserDetails = async (req, res) => {
   try {
-    const user = await db.query(`select * from users`);
+    const user = await db.query(`select * from users where user_id = 
+    5`);
     res.json(user.rows);
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
+  }
+};
+
+// ---------------------------------------------------------------- update user info --------------------------------------------
+
+exports.update_user = async (req, res) => {
+  const { user_id, first_name, last_name, email, phone } = req.body;
+
+  try {
+    const schema = Joi.object({
+      first_name: Joi.string().alphanum().min(3).max(20).required(),
+      last_name: Joi.string().alphanum().min(3).max(20).required(),
+      email: Joi.string()
+        .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
+        .required(),
+      phone: Joi.string()
+        .pattern(/^[0-9]{7,12}$/)
+        .required(),
+    });
+    const validate = schema.validate({
+      first_name,
+      last_name,
+      email,
+      phone,
+    });
+    const user_id = 5;
+    if (validate.error) {
+      res.status(405).json({ error: validate.error.details });
+    } else {
+      const userQuery = "SELECT * FROM users WHERE user_id = $1";
+      const user = await db.query(userQuery, [user_id]);
+
+      if (!user.rows.length) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      const updateQuery = `
+      UPDATE users
+      SET
+        first_name = $2,
+        last_name = $3,
+        email = $4,
+        phone = $5
+      WHERE user_id = $1
+      RETURNING user_id`;
+
+      const updatedUser = await db.query(updateQuery, [
+        user_id,
+        first_name,
+        last_name,
+        email,
+        phone,
+      ]);
+      res.status(200).json({
+        message: "User details updated successfully",
+        user_id: updatedUser.rows[0].user_id,
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to update user details");
   }
 };
