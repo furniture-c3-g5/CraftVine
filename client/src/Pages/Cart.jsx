@@ -9,7 +9,7 @@ const Cart = () => {
   const [cartProduct, setCartProduct] = useState([]);
 
   useEffect(() => {
-    axios.get('https://fakestoreapi.com/products')
+    axios.get('http://localhost:3000/cart')
       .then((response) => {
         setCartProduct(response.data);
       })
@@ -30,7 +30,7 @@ const Cart = () => {
 
       // If you need to update the server as well, you can make an Axios request here.
       axios
-        .patch(`https://fakestoreapi.com/products${productId}`, {
+        .patch(`http://localhost:3000/add-to-cart${productId}`, {
           quantity: updatedCart.find((item) => item.id === productId).quantity,
         })
         .then((response) => {
@@ -46,7 +46,7 @@ const Cart = () => {
 
   const handleRemoveItem = (productId) => {
     // You can make an Axios request to remove the item from the cart on the server.
-    axios.delete(`https://fakestoreapi.com/products${productId}`)
+    axios.delete(`http://localhost:3000/remove-from-cart${productId}`)
       .then((response) => {
         // Handle the successful removal on the server if needed.
         // You can also remove the item locally from the cartProduct state.
@@ -72,16 +72,16 @@ const Cart = () => {
                 <div className="flow-root">
                   <ul className="-my-8">
                     {cartProduct.map((product) => (
-                      <li className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0" key={product.id}>
+                      <li className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0" key={product.product_id}>
                         <div className="shrink-0">
-                          <img className="h-24 w-24 max-w-full rounded-lg object-cover" src={product.image} alt="" />
+                          <img className="h-24 w-24 max-w-full rounded-lg object-cover" src={product.image_url} alt="" />
                         </div>
 
                         <div className="relative flex flex-1 flex-col justify-between">
                           <div className="sm:col-gap-5 sm:grid sm:grid-cols-2">
                             <div className="pr-8 sm:pr-5">
-                              <p className="text-base font-semibold text-gray-900">{product.title}</p>
-                              <p className="mt-1 text-xs text-gray-700">{product.size}</p>
+                              <p className="text-base font-semibold text-gray-900">{product.product_id}</p>
+                              {/* <p className="mt-1 text-xs text-gray-700">{product.size}</p> */}
                             </div>
 
                             <div className="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
@@ -96,7 +96,7 @@ const Cart = () => {
                           </div>
 
                           <div className="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
-                            <button type="button" onClick={() => handleRemoveItem(product.id)} className="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900">
+                            <button type="button" onClick={() => handleRemoveItem(product.product_id)} className="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900">
                               <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                               </svg>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
+import Related from '../Components/website/Related'
 
 const ProductSection = () => {
     const { id } = useParams();
@@ -133,6 +134,7 @@ const ProductSection = () => {
           </div>
         </div>
       </div>
+      <Related />
     </section>
   );
 };

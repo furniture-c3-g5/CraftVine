@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 const CheckoutComponent = () => {
 
     const [email ,setEmail]=useState("");
+    const [payment_amount ,setPayment_amount]=useState("");
+
     const [number,setCardNumber]=useState("");
     const [ month ,setMonth] =useState("");
     const [ year ,setYear] =useState("");
@@ -42,7 +44,8 @@ const CheckoutComponent = () => {
                 "month" : month ,
                 "year" : year ,
                 "cvc" : cvc ,
-                "cardname" : cardname 
+                "cardname" : cardname ,
+                "payment_amount" : 50
             });
             console.log(response.status)
             if( response.status === 200){
@@ -171,9 +174,9 @@ console.log(blogPost);
               <div><label htmlFor="card-name" className="sr-only">Card name</label><input value={cardname} onChange={(e) => setCardName(e.target.value)}  type="text" id="card-name" name="card-name" placeholder="Name on the card" className="mt-1 block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-teal-500" /></div>
             </form>
             <p className="mt-10 text-center text-sm font-semibold text-gray-500">By placing this order you agree to the <a href="#" className="whitespace-nowrap text-teal-400 underline hover:text-teal-600">Terms and Conditions</a></p>
-            <button onClick={hendlePayment} type="submit" className="mt-4 inline-flex w-full items-center justify-center rounded bg-teal-600 py-2.5 px-4 text-base font-semibold tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-teal-500 sm:text-lg">Place Order</button>
+            <button type="submit" className="mt-4 inline-flex w-full items-center justify-center rounded bg-teal-600 py-2.5 px-4 text-base font-semibold tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-teal-500 sm:text-lg">Place Order</button>
           </div>
-        </div>
+        </div>   
         <div className="relative col-span-full flex flex-col py-6 pl-8 pr-4 sm:py-12 lg:col-span-4 lg:py-24">
           <h2 className="sr-only">Order summary</h2>
           <div>

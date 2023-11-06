@@ -5,33 +5,53 @@ import { Link, useParams } from "react-router-dom";
 const DisProducts = () => {
   // const [quantity, setQuantity] = useState(2);
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
-
-  const category = useParams(); 
+  // const [filteredProducts, setFilteredProducts] = useState([]);
+  const [cart, setCart] = useState([]);
+  const {id} = useParams(); 
+  console.log(id);
 
 
   // fetch products
   useEffect(() => {
-    console.log(category);
+   
     axios
-      .get("https://fakestoreapi.com/products")
+      .get(`http://localhost:5000/products/discount/${id}`)
       .then((response) => {
+    
         setProducts(response.data)
+        console.log(response.data)
       })
       .catch((error) => {
         // Handle errors here
         console.error("Error:", error);
       });
-  }, []);
+  }, [id]);
 
-  useEffect(() => {
-    if (products.length > 0 && category) {
-      const filtered = products.filter((product) => product.rating === category);
-      console.log(products);
-      console.log(filtered);
-      setFilteredProducts(filtered);
+  const addToCart = async () => {
+    try {
+      const response = await axios.post('https://fakestoreapi.com/carts', {
+      
+        "id" : id
+          });
+      if (response.status === 200) {
+        alert("Added to cart successfully!");
+        // setCart([...cart, blogPost]);
+      }
+    } catch (error) {
+      console.log("Error adding to cart:", error);
+      
     }
-  }, [products, category]);
+  };
+
+  // useEffect(() => {
+  //   if (products.length > 0 && id) {
+  //     const filtered = products.filter((product) => product.discount_percentage === id);
+  //     console.log(products);
+  //     console.log(filtered);
+
+  //     setFilteredProducts(filtered);
+  //   }
+  // }, [products, id]);
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
   const productPerPage = 9;
@@ -64,11 +84,11 @@ const DisProducts = () => {
     
       <h1 className="text-teal-600 text-4xl mb-6 font-bold">Explore Our Products</h1>
       <div className="relative flex flex-wrap gap-7 justify-center items-center mx-16">
-        {filteredProducts.map((product) => (
-          <div key={product.product_id} className="group my-2 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
+        {products.map((product) => (
+          <div key={product.product_id} className="group my-2 flex flex-col md:flex-row flex-wrap w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
             <Link
               className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl"
-              to={`/product/${product.category}`}
+              to={`/product/${product.id}`}
             >
               <img
                 className="peer absolute border top-0 right-0 h-full w-full object-cover"
@@ -96,7 +116,7 @@ const DisProducts = () => {
                   </span>
                 </p>
               </div>
-              <button className="w-full flex items-center justify-center rounded-full bg-teal-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-teal-800 focus:outline-none focus:ring-4 focus:ring-blue-300">
+              <button onClick={addToCart} className="w-full flex items-center justify-center rounded-full bg-teal-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-teal-800 focus:outline-none focus:ring-4 focus:ring-blue-300">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="mr-2 h-6 w-6"
