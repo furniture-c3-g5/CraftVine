@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import Related from '../Components/website/Related';
+import { Link, useParams } from 'react-router-dom';
 
 const ProductSection = () => {
     const { id } = useParams();
@@ -10,9 +9,7 @@ const ProductSection = () => {
   const [cart, setCart] = useState([]);
   const [favorite, setFavorite] = useState([]);
   const [error, setError] = useState([]);
-
-
-
+  const [blogImages, setBlogImages] = useState(null);
 
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -28,7 +25,7 @@ const ProductSection = () => {
     try {
       const response = await axios.post('https://fakestoreapi.com/carts', {
         "quantity" : blogPost.quantity,
-        "product_id" : id
+        "id" : id
           });
       if (response.status === 201) {
         alert("Added to cart successfully!");
@@ -43,7 +40,7 @@ const ProductSection = () => {
   const addToFavorite = async () => {
     try {
       const response = await axios.post('https://fakestoreapi.com/favorite', {
-        "producr_id" : id
+        "id" : id
           
         
       });
@@ -56,11 +53,13 @@ const ProductSection = () => {
       
     }
   };
-
+  // ${id}
   useEffect(() => {
     axios.get(`http://localhost:5000/Get_Product_By_Id/${id}`)
       .then((response) => {
-        setBlogPost(response.data);
+        setBlogPost(response.data.data);
+        setBlogImages(response.data.images);
+        console.log(response.data.images); 
       })
       .catch((error) => {
         console.error("Error fetching product:", error);
@@ -81,24 +80,26 @@ const ProductSection = () => {
           <img
             alt={blogPost.product_name}
             className="lg:w-80 w-full h-96 object-cover object-center rounded border border-teal-600 hover:z-50 transition-transform duration-300 transform hover:scale-150"
-            src={blogPost.image_url}
+            src={blogImages[0].image_url}
           />
+          {/* <img className="w-full" src={blogImages[2].image_url} alt={blogPost.product_name} /> */}
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             <h1 className="flex text-gray-900 text-3xl title-font font-medium mb-4">{blogPost.product_name}</h1>
             <div className="flex mb-4">
-              <span className="text-gray-600 ml-2">{blogPost.average_rating} /5</span>
+              {/* <span className="text-gray-600 ml-2">{blogPost.average_rating} /5</span> */}
             </div>
             <p className="leading-relaxed text-left">{blogPost.description}</p>
             <div className="flex mt-6 justify-between pb-5 border-b-2 border-gray-200 mb-5">
               <div className="flex items-center justify-between">
                 <span className="mr-3">Color</span>
                 
-                {/* {blogPost.map(( blogs,index ) => (
+                <button onClick={addToCart} className="mr-3 border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none bg-red-500"></button>
+                <button onClick={addToCart} className="mr-3 border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none bg-green-500"></button>
+                <button onClick={addToCart} className="mr-3 border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none bg-blue-500"></button>
+                {/* <span className="mr-3 border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none bg-red-500"></span>
+                <span className="mr-3 border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none bg-green-500"></span>
+                <span className="mr-3 border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none bg-blue-500"></span> */}
 
-                <>
-                <button className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none" key={index}>{blogs.product_color}</button>
-                </>
-                 ))} */}
                 <div className="flex ml-6 items-center">
                  
                   <button onClick={decreaseQuantity} className="border-2 w-6 h-6 focus:outline-none">-</button>
@@ -119,9 +120,9 @@ const ProductSection = () => {
             </div>
             <div className="flex">
               <span className="title-font font-medium text-2xl text-gray-900">{blogPost.price}</span>
-              <button  onClick={addToCart} className="flex ml-auto text-white bg-teal-600 border-0 py-2 px-6 focus:outline-none hover:bg-teal-600 rounded">
+              <Link to = "/cart" ><button  onClick={addToCart} className="flex ml-60 text-white bg-teal-600 border-0 py-2 px-6 focus:outline-none hover:bg-teal-600 rounded " >
                 Add to Cart
-              </button>
+              </button></Link>
 
               <button onClick={addToFavorite} className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                 <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-5 h-5" viewBox="0 0 24 24">
@@ -131,9 +132,6 @@ const ProductSection = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div className='my-20'>
-        <Related  category={blogPost.category}/>
       </div>
     </section>
   );

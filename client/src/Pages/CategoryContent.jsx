@@ -14,7 +14,7 @@ const CategoryContent = () => {
   useEffect(() => {
     axios
       // .get("https://fakestoreapi.com/products")
-      .get("http://localhost:5000/Get_Products_By_Category/:category")
+      .get(`http://localhost:5000/Get_Products_By_Category/:${category}`)
       .then((response) => {
         setProducts(response.data);
       })
@@ -71,23 +71,23 @@ const CategoryContent = () => {
       <div className="relative flex flex-wrap gap-7 justify-center items-center mx-16">
         {currentProducts.map((product) => (
           <div
-            key={product.id}
+            key={product.product_id}
             className="group my-2 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md"
           >
             <Link
               className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl"
-              to={`/product/${product.id}`}
+              to={`/product/${product.product_id}`}
             >
               <img
                 className="peer absolute border top-0 right-0 h-full w-full object-cover"
-                src={product.image}
+                src={product.image_url}
                 alt="product image"
               />
             </Link>
             <div className="mt-4 px-5 pb-5">
               <a href="#">
                 <h5 className="text-xl text-start h-8 mb-5 overflow-hidden tracking-tight text-slate-900">
-                  {product.title}
+                  {product.product_name}
                 </h5>
               </a>
               <div className="mt-2 mb-5 flex items-center justify-between">

@@ -17,6 +17,7 @@ import ProductPage from "./Pages/ProductPage";
 import CategoryContent from "./Pages/CategoryContent";
 import DisProducts from "./Pages/Dis";
 import ProductSection from "./Pages/Detail";
+import CheckoutComponent from "./Pages/Payment";
 
 function App() {
   return (
@@ -39,6 +40,8 @@ function App() {
             <Route path="/products" element={<ProductPage />} />
             <Route path="/discount/:dis" element={<DisProducts />} />
             <Route path="/product/:id" element={<ProductSection />} />
+            <Route path="/payment" element={<CheckoutComponent />} />
+            <Route path="/cart" element={<ProductSection />} />
           </Routes>
         </div>
         <Footer />
