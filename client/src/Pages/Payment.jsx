@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const CheckoutComponent = () => {
@@ -18,9 +18,12 @@ const CheckoutComponent = () => {
 
     const history = useNavigate();
 
-
     const hendlePayment = async (e) => {
-        e.preventDefault();
+      e.preventDefault();
+      console.log("Button clicked");
+      console.log("Number:", number);
+      console.log("Month:", month);
+      console.log("Year:", year);
 
         // Validation
     // if (!validateEmail(email)) {
@@ -45,9 +48,10 @@ const CheckoutComponent = () => {
                 "year" : year ,
                 "cvc" : cvc ,
                 "cardname" : cardname ,
-                "payment_amount" : 50
+                "payment_amount" : 50,
+                "payment_method" : "visa",
             });
-            console.log(response.status)
+            // console.log(response.status)
             if( response.status === 200){
             alert("Your purchase was completed successfully!");
 
@@ -121,7 +125,7 @@ const CheckoutComponent = () => {
        23, 24, 25 ,26, 27, 28,
        29, 30, 31, 32, 33, 34
       ];
-console.log(blogPost);
+// console.log(blogPost);
   return (
     <div className="relative mx-auto w-full bg-white">
       <div className="grid min-h-screen grid-cols-10">
@@ -172,9 +176,10 @@ console.log(blogPost);
                 </div>
               </div>
               <div><label htmlFor="card-name" className="sr-only">Card name</label><input value={cardname} onChange={(e) => setCardName(e.target.value)}  type="text" id="card-name" name="card-name" placeholder="Name on the card" className="mt-1 block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-teal-500" /></div>
+            <Link to ="/orders">
+            <button type="submit" className="mt-4 inline-flex w-full items-center justify-center rounded bg-teal-600 py-2.5 px-4 text-base font-semibold tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-teal-500 sm:text-lg">Place Order</button></Link>
             </form>
-            <p className="mt-10 text-center text-sm font-semibold text-gray-500">By placing this order you agree to the <a href="#" className="whitespace-nowrap text-teal-400 underline hover:text-teal-600">Terms and Conditions</a></p>
-            <button type="submit" className="mt-4 inline-flex w-full items-center justify-center rounded bg-teal-600 py-2.5 px-4 text-base font-semibold tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-teal-500 sm:text-lg">Place Order</button>
+            
           </div>
         </div>   
         <div className="relative col-span-full flex flex-col py-6 pl-8 pr-4 sm:py-12 lg:col-span-4 lg:py-24">
@@ -204,13 +209,15 @@ console.log(blogPost);
             </div>
             
             <div className="my-5 h-0.5 w-full bg-white bg-opacity-30"></div>
-            <div className="space-y-2">
-              <p className="flex justify-between text-lg font-bold text-white"><span> Total Price</span><span>${blog.payment_amount}</span></p>
-            </div>
+            
             </>
+            
           ))
           ):(<p>Loading...</p>
           )}
+          
+              <p className="flex justify-between text-lg font-bold text-white"><span> Total Price</span><span>${payment_amount}</span></p>
+            
           </div>
           <div className="relative text-left mt-10 text-white">
             <h3 className="mb-5 text-lg font-bold">Support</h3>

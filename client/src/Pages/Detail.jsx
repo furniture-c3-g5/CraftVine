@@ -22,15 +22,23 @@ const ProductSection = () => {
     setQuantity(quantity + 1);
   };
 
+//   { 
+//     "user_id": 6,
+//     "product_id": 1,
+//     "quantity": 5
+//  }
+
   const addToCart = async () => {
     try {
-      const response = await axios.post('https://fakestoreapi.com/carts', {
-        "quantity" : blogPost.quantity,
-        "id" : id
+      const response = await axios.post('http://localhost:5000/add-to-cart', {
+        "quantity" : quantity,
+        "user_id" : 5,
+        "product_id" :id,
           });
       if (response.status === 201) {
         alert("Added to cart successfully!");
         setCart([...cart, blogPost]);
+        console.log ('hi')
       }
     } catch (error) {
       console.log("Error adding to cart:", error);
@@ -42,8 +50,7 @@ const ProductSection = () => {
     try {
       const response = await axios.post('https://fakestoreapi.com/favorite', {
         "id" : id
-          
-        
+              
       });
       if (response.status === 201) {
         alert("Added to favorite successfully!");
@@ -94,23 +101,23 @@ const ProductSection = () => {
               <div className="flex items-center justify-between">
                 <span className="mr-3">Color</span>
                 
-                <button onClick={addToCart} className="mr-3 border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none bg-red-500"></button>
-                <button onClick={addToCart} className="mr-3 border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none bg-green-500"></button>
-                <button onClick={addToCart} className="mr-3 border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none bg-blue-500"></button>
+                <button onClick={()=>{addToCart()}} className="mr-3 border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none bg-red-500"></button>
+                <button onClick={()=>{addToCart()}} className="mr-3 border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none bg-green-500"></button>
+                <button onClick={()=>{addToCart()}} className="mr-3 border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none bg-blue-500"></button>
                 {/* <span className="mr-3 border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none bg-red-500"></span>
                 <span className="mr-3 border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none bg-green-500"></span>
                 <span className="mr-3 border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none bg-blue-500"></span> */}
 
                 <div className="flex ml-6 items-center">
                  
-                  <button onClick={decreaseQuantity} className="border-2 w-6 h-6 focus:outline-none">-</button>
+                  <button onClick={()=>{decreaseQuantity()}} className="border-2 w-6 h-6 focus:outline-none">-</button>
                   <input
                     type="text"
                     value={quantity}
                     className="border-2 border-gray-300 w-10 h-6 text-center focus:outline-none"
                     readOnly
                   />
-                  <button onClick={increaseQuantity} className="bg-teal-600 w-6 h-6 focus:outline-none">+</button>
+                  <button onClick={()=>{increaseQuantity()}} className="bg-teal-600 w-6 h-6 focus:outline-none">+</button>
                 </div>
               </div>
               <div className="flex ml-6 items-center">
@@ -134,7 +141,9 @@ const ProductSection = () => {
           </div>
         </div>
       </div>
+     
       <Related />
+     
     </section>
   );
 };

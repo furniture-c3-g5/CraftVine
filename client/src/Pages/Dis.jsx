@@ -7,6 +7,7 @@ const DisProducts = () => {
   const [products, setProducts] = useState([]);
   // const [filteredProducts, setFilteredProducts] = useState([]);
   const [cart, setCart] = useState([]);
+  const [blogImages, setBlogImages] = useState(null);
   const {id} = useParams(); 
   console.log(id);
 
@@ -15,18 +16,21 @@ const DisProducts = () => {
   useEffect(() => {
    
     axios
-      .get(`http://localhost:5000/products/discount/${id}`)
+      .get(`http://localhost:5000/Get_Products_By_Discount/${id}`)
       .then((response) => {
     
-        setProducts(response.data)
-        console.log(response.data)
+        setProducts(response.data.data)
+        console.log(response.data.data)
+        setBlogImages(response.data.data[0].images);
+        console.log(response.data.data.images);
+         
       })
       .catch((error) => {
         // Handle errors here
         console.error("Error:", error);
       });
   }, [id]);
-
+  console.log(blogImages);
   const addToCart = async () => {
     try {
       const response = await axios.post('https://fakestoreapi.com/carts', {
@@ -82,25 +86,22 @@ const DisProducts = () => {
   return (
     <div className="my-16">
     
-      <h1 className="text-teal-600 text-4xl mb-6 font-bold">Explore Our Products</h1>
+      <h1 className="text-teal-600 text-4xl mb-6 font-bold">Discount</h1>
       <div className="relative flex flex-wrap gap-7 justify-center items-center mx-16">
         {products.map((product) => (
-          <div key={product.product_id} className="group my-2 flex flex-col md:flex-row flex-wrap w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
+          <div
+            key={product.product_id}
+            className="group my-2 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md"
+          >
             <Link
               className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl"
-              to={`/product/${product.id}`}
+              to={`/product/${product.product_id}`}
             >
               <img
                 className="peer absolute border top-0 right-0 h-full w-full object-cover"
-                src={product.image_url}
+                src={blogImages[0].image_url}
                 alt="product image"
               />
-              {/* <img
-                className="peer absolute top-0 border -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0 peer-hover:right-0"
-                src={product.image[1]}
-                alt="product image"
-              /> */}
-              {/* <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span> */}
             </Link>
             <div className="mt-4 px-5 pb-5">
               <a href="#">
@@ -110,13 +111,12 @@ const DisProducts = () => {
               </a>
               <div className="mt-2 mb-5 flex items-center justify-between">
                 <p>
-                  {/* <span className="text-3xl font-bold  line-through text-teal-600">${product.price}</span> */}
                   <span className="text-lg font-bold text-slate-900">
                     ${product.price}
                   </span>
                 </p>
               </div>
-              <button onClick={addToCart} className="w-full flex items-center justify-center rounded-full bg-teal-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-teal-800 focus:outline-none focus:ring-4 focus:ring-blue-300">
+              <button className="w-full flex items-center justify-center rounded-full bg-teal-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-teal-800 focus:outline-none focus:ring-4 focus:ring-blue-300">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="mr-2 h-6 w-6"

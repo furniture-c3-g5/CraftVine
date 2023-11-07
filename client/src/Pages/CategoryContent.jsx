@@ -9,6 +9,7 @@ const CategoryContent = () => {
   const category = useParams();
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 9;
+  const [blogImages, setBlogImages] = useState(null);
 
   // Fetch products
   useEffect(() => {
@@ -16,7 +17,10 @@ const CategoryContent = () => {
       // .get("https://fakestoreapi.com/products")
       .get(`http://localhost:5000/Get_Products_By_Category/${category.category}`)
       .then((response) => {
-        setProducts(response.data);
+        setProducts(response.data.data);
+        console.log(response.data.data);
+        setBlogImages(response.data.data[0].images);
+        console.log(response.data.data.images); 
       })
       .catch((error) => {
         // Handle errors here
@@ -24,21 +28,21 @@ const CategoryContent = () => {
       });
   }, []);
 
-  useEffect(() => {
-    if (products.length > 0 && category) {
-      const filtered = products.filter(
-        (product) => product.category === category.categoryName
-      );
-      setFilteredProducts(filtered);
-    }
-  }, [products, category]);
+  // useEffect(() => {
+  //   if (products.length > 0 && category) {
+  //     const filtered = products.filter(
+  //       (product) => product.category === category.category
+  //     );
+  //     setFilteredProducts(filtered);
+  //   }
+  // }, [products, category]);
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
 
-  const searchFilteredProducts = filteredProducts.filter((product) =>
-    product.title.toLowerCase().includes(searchQuery.toLowerCase())
+  const searchFilteredProducts = products.filter((product) =>
+    product.product_name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -80,7 +84,7 @@ const CategoryContent = () => {
             >
               <img
                 className="peer absolute border top-0 right-0 h-full w-full object-cover"
-                src={product.image_url}
+                src={blogImages[0].image_url}
                 alt="product image"
               />
             </Link>

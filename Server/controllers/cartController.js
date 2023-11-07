@@ -34,12 +34,7 @@ exports.addToCart = async (req, res) => {
       // إذا لم يتم العثور على المنتج، قم بإدراجه في سلة التسوق
       const insertQuery =
         "INSERT INTO cart (user_id, product_id, quantity, price) VALUES ($1, $2, $3, $4)";
-      await pool.query(insertQuery, [
-        user_id,
-        product_id,
-        quantity,
-        price,
-      ]);
+      await pool.query(insertQuery, [user_id, product_id, quantity, price]);
     }
 
     res
@@ -54,9 +49,7 @@ exports.addToCart = async (req, res) => {
 // عرض سلة التسوق
 exports.viewCart = async (req, res) => {
   try {
-    const result = await pool.query(
-      "SELECT cart_id, user_id, product_id, quantity, price, created_at FROM cart"
-    );
+    const result = await pool.query("SELECT * FROM cart");
     const results = { results: result ? result.rows : null };
     res.status(200).json(results);
   } catch (err) {

@@ -177,6 +177,65 @@ const getProductsByCategory = async (req, res) => {
 };
 // Get Product By Category End
 
+
+// Get Product By Discount Start
+const getProductsByDiscount = async (req, res) => {
+  const discount_percent = req.params.discount_percent;
+
+  try {
+    const productQuery =
+      "SELECT p.product_id, p.product_name, p.category, p.discount_percentage, p.price, p.description, p.quantity, p.release_date, pi.image_id, pi.image_name, pi.product_color " +
+      "FROM products p " +
+      "LEFT JOIN product_images pi ON p.product_id = pi.product_id " +
+      "WHERE discount_percentage >= $1"
+
+    const productResult = await pool.query(productQuery, [discount_percent]);
+
+    if (productResult.rows.length > 0) {
+      const products = productResult.rows.map((product) => {
+        const images = productResult.rows.map((image) => {
+          const image_name = image.image_name;
+          const image_url = image_name
+            ? `http://localhost:5000/ProductImages/${image_name}`
+            : null;
+          return {
+            image_id: image.image_id,
+            image_name: image.image_name,
+            product_color: image.product_color,
+            image_url: image_url,
+          };
+        });
+
+        return {
+          product_id: product.product_id,
+          product_name: product.product_name,
+          discount_percent: product.discount_percent,
+          price: product.price,
+          description: product.description,
+          quantity: product.quantity,
+          release_date: product.release_date,
+          images: images,
+        };
+      });
+
+      res
+        .status(200)
+        .json({
+          message: "Get Products By discount_percent Successfully",
+          data: products,
+        });
+    } else {
+      res.status(404).json({ error: "No discount_percent found in this discount" });
+    }
+  } catch (error) {
+    console.error("An error occurred while fetching the products:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching the products" });
+  }
+};
+// Get Product By Discount End
+
 // Add New Product Start
 const addNewProduct = async (req, res) => {
   let {
@@ -339,4 +398,5 @@ module.exports = {
   updateProductById,
   deleteProductById,
   getProductsByCategory,
+  getProductsByDiscount
 };

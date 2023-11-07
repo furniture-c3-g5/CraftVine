@@ -27,6 +27,7 @@ function App() {
         {/* <AuthProvider> */}
         <Navbar />
         <div className="h-full">
+          
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<SignIn />} />

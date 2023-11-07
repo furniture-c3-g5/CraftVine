@@ -9,6 +9,10 @@ router.get(
   "/Get_Products_By_Category/:category",
   productController.getProductsByCategory
 );
+router.get(
+  "/Get_Products_By_Discount/:discount_percent",
+  productController.getProductsByDiscount
+);
 router.post(
   "/Add_New_product",
   authenticateToken.authorize(["admin", "superuser"]),

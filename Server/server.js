@@ -26,7 +26,7 @@ const productsRouter_ay = require("./routes/productsRouter ay");
 const profileRouter = require("./routes/profileRouter");
 const productsRouter = require("./routes/productsRouter");
 
-const cartRoutes = require("./routes/cartRoutes")
+const cartRoutes = require("./routes/cartRoutes");
 
 // ---------------------------------------------------------------------
 
