@@ -1,26 +1,19 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import Cookies from 'js-cookie';
-import jwt from 'jsonwebtoken';
+import { useCookies } from 'react-cookie';
 
 const Profile = () => {
   const [user, setUser] = useState([]);
-
-  // fetch user data
-  useEffect(() => {
-    const token = Cookies.get('token');
-    if (token) {
-      const decodedToken = jwt.decode(token);
-      if (decodedToken) {
-        const user_id = decodedToken.user_id;
-        setUserId(user_id);
-      }
-    }
-  }, []);
+  const [headers, setHeaders] = useState();
+  const [token] = useCookies(['token']);
 
   useEffect(() => {
+    setHeaders({'token': token})
     axios
-      .get(`http://localhost:5000/user/${user_id}`)
+      .get(`http://localhost:5000/user`
+      ,{
+        headers:headers
+      })
       .then((response) => {
         setUser(response.data);
       })
@@ -98,8 +91,10 @@ const Profile = () => {
       console.log(updatedUser);
       try {
         const response = await axios.put(
-          `http://localhost:5000/updateuser/`,
-          updatedUser
+          `http://localhost:5000/updateuser`,
+          updatedUser,{
+            headers:headers
+          }
         );
         console.log(response.data);
       } catch (error) {

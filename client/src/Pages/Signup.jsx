@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -149,10 +150,18 @@ function Register() {
           {error && !error.email && !error.password && (
             <p className="text-red-600 mt-2">{error}</p>
           )}
+          <Link to="/login">
           <button className=" mt-4  focus:outline-none text-blaxk  border-0 py-3 px-12 w-40 font-bold text-sm cursor-pointer transition-all duration-300  ">
             {" "}
-            ot Log in
+            or Log in
           </button>
+          </Link>
+          <Link to="/">
+          <button className=" mt-4  focus:outline-none text-blaxk  border-0 py-3 px-12 w-40 font-bold text-sm cursor-pointer transition-all duration-300  ">
+            {" "}
+            Go Back
+          </button>
+          </Link>
           <div className="flex justify-center">
             <button className="p-2 mx-3 text-blue-500">
               <i className="fab fa-facebook-f"></i>

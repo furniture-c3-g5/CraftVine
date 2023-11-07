@@ -1,10 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from '../../Images/logo.png'
 
 const Footer = () => {
   const user = null;
   // const user = "hello"
+  const location = useLocation();
+  if(location.pathname == '/login' || location.pathname == '/signup'){
+    return null;
+  }
 
   return (
     <footer className="bg-neutral-100 text-center text-neutral-600 dark:bg-neutral-600 dark:text-neutral-200 lg:text-left">
@@ -104,9 +108,9 @@ const Footer = () => {
               </Link>
             </p>
             <p className="mb-4">
-              <a href="#!" className="text-neutral-600 dark:text-neutral-200">
+              <Link to="/products" className="text-neutral-600 dark:text-neutral-200">
                 Products
-              </a>
+              </Link>
             </p>
           </div>
           {/* Useful links section */}
@@ -120,19 +124,19 @@ const Footer = () => {
               </Link>
             </p>
             <p className="mb-4">
-              <a href="#!" className="text-neutral-600 dark:text-neutral-200">
+              <Link to="/wishlist" className="text-neutral-600 dark:text-neutral-200">
                 Wishlist
-              </a>
+              </Link>
             </p>
             <p className="mb-4">
-              <a href="#!" className="text-neutral-600 dark:text-neutral-200">
+              <Link to="/cart" className="text-neutral-600 dark:text-neutral-200">
                 Cart
-              </a>
+              </Link>
             </p>
             <p className="mb-4">
-              <a href="#!" className="text-neutral-600 dark:text-neutral-200">
+              <Link to="/orders" className="text-neutral-600 dark:text-neutral-200">
                 Orders
-              </a>
+              </Link>
             </p>
           </div>
           {/* Contact section */}
@@ -141,19 +145,19 @@ const Footer = () => {
               About Us
             </h6>
             <p className="mb-4 flex items-center justify-center md:justify-start">
-              <a href="#!" className="text-neutral-600 dark:text-neutral-200">
+              <Link to="/about" className="text-neutral-600 dark:text-neutral-200">
                 Our Story
-              </a>
+              </Link>
             </p>
             <p className="mb-4 flex items-center justify-center md:justify-start">
-            <a href="#!" className="text-neutral-600 dark:text-neutral-200">
+            <Link to="/about" className="text-neutral-600 dark:text-neutral-200">
                 Team
-              </a>
+              </Link>
             </p>
             <p className="mb-4 flex items-center justify-center md:justify-start">
-              <a href="#!" className="text-neutral-600 dark:text-neutral-200">
+              <Link to="/contact" className="text-neutral-600 dark:text-neutral-200">
                 Contact Us
-              </a>
+              </Link>
             </p>
           </div>
         </div>

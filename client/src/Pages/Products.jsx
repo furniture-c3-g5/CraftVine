@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
+import axios from 'axios'
 
-const ExploreProducts = () => {
-  // const [quantity, setQuantity] = useState(2);
-  const [products, setProducts] = useState([]);
+const Products = () => {
+    const [products, setProducts] = useState([]);
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const productPerPage = 3;
+  const productPerPage = 9;
   const totalPages = Math.ceil(products.length / productPerPage);
   const indexOfLastProduct = currentPage * productPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productPerPage;
@@ -32,42 +31,39 @@ const ExploreProducts = () => {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-  // end of pagination
-
-  // fetch products
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/products")
-      .then((response) => {
-        // Handle the response data here
-        setProducts(response.data);
-      })
-      .catch((error) => {
-        // Handle errors here
-        console.error("Error:", error);
-      });
-  }, []);
-
-  // function to add items to cart
-  const addToCart = async (id) => {
-  //   try {
-  //     const response = await axios.post('https://fakestoreapi.com/carts', {
-  //       "quantity" : product,
-  //       "id" : id
-  //         });
-  //     if (response.status === 201) {
-  //       alert("Added to cart successfully!");
-  //       setCart([...cart, blogPost]);
-  //     }
-  //   } catch (error) {
-  //     console.log("Error adding to cart:", error);
-      
-  //   }
-  };
-
+    useEffect(() => {
+        axios
+          .get("http://localhost:5000/products")
+          .then((response) => {
+            // Handle the response data here
+            setProducts(response.data);
+          })
+          .catch((error) => {
+            // Handle errors here
+            console.error("Error:", error);
+          });
+      }, []);
+      const addToCart = async (id) => {
+        //   try {
+        //     const response = await axios.post('https://fakestoreapi.com/carts', {
+        //       "quantity" : product,
+        //       "id" : id
+        //         });
+        //     if (response.status === 201) {
+        //       alert("Added to cart successfully!");
+        //       setCart([...cart, blogPost]);
+        //     }
+        //   } catch (error) {
+        //     console.log("Error adding to cart:", error);
+            
+        //   }
+        };
   return (
-    <div className="my-16">
-      <h1 className="text-teal-600 text-4xl mb-6 font-bold">Explore Our Products</h1>
+    <div>
+        <div className='flex mx-10'>
+            {/* <button onClick={filterCategory('Chairs')}></button> */}
+        </div>
+      <div className="my-16">
       <div className="relative flex flex-wrap gap-7 justify-center items-center mx-16">
         {currentItems.map((product, id) => (
           <div key={id} className="group my-2 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
@@ -156,9 +152,8 @@ const ExploreProducts = () => {
         </div>
       </div>
     </div>
-  );
-};
+    </div>
+  )
+}
 
-export default ExploreProducts;
-
-// function to add items to cart
+export default Products

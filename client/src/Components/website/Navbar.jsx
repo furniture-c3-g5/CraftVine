@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../Images/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const Navbar = () => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
-  // const user = null;
-  const user = "hello"
-
+  const [user, setUser] = useState(false);
+  const [cookie, setCookie, removeCookie] = useCookies(["token"],{token:null});
+  console.log(useCookies(["token"]));
+  useEffect(() => {
+    if (cookie.token) {
+      setUser(true);
+    }
+  },[]);
+  console.log(cookie.token);
+  const location = useLocation();
+  if (location.pathname == "/login" || location.pathname == "/signup") {
+    return null;
+  }
   return (
     <header className="border-b">
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -70,7 +81,7 @@ const Navbar = () => {
               />
             </div>
             {/* Cart icon */}
-            <Link to='/y'>
+            <Link to="/y">
               <button
                 type="button"
                 className="inline-flex mx-1 md:mx-3 items-center px-6 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -78,9 +89,13 @@ const Navbar = () => {
                 aria-expanded={isMenuOpened}
               >
                 <div className="relative">
-                  <div className={`${user === null? 'hidden': 'block'} t-0 absolute left-3`}>
+                  <div
+                    className={`${
+                      !user ? "hidden" : "block"
+                    } t-0 absolute left-3`}
+                  >
                     <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
-                      3
+                      0
                     </p>
                   </div>
                   <svg
@@ -89,7 +104,7 @@ const Navbar = () => {
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
                     stroke="currentColor"
-                    className={`file: h-6 w-6 ${user !== null? 'mt-4': 'mt-0'}`}
+                    className={`file: h-6 w-6 ${user ? "mt-4" : "mt-0"}`}
                   >
                     <path
                       stroke-linecap="round"
@@ -127,12 +142,24 @@ const Navbar = () => {
               </svg>
             </button>
             {/* login button */}
-            <Link to='/login' className={`${user === null &&'md:block'} hidden`}>
-              <button className="bg-teal-600 rounded-full text-white h-10 px-4">Signin/Signup</button>
+            <Link
+              to="/login"
+              className={`${!user && "md:block"} hidden`}
+            >
+              <button className="bg-teal-600 rounded-full text-white h-10 px-4">
+                Signin/Signup
+              </button>
             </Link>
             {/* profile img */}
-            <Link to='/account' className={`${user === null? 'hidden': 'block'}`}>
-              <img className="rounded-full h-10 w-10 ml-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ9ka6C2Dg57POea71oMW0poPA8jtjGDWacddi1Eg&s" alt="Profile"/>
+            <Link
+              to="/account"
+              className={`${!user ? "hidden" : "block"}`}
+            >
+              <img
+                className="rounded-full h-10 w-10 ml-3"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ9ka6C2Dg57POea71oMW0poPA8jtjGDWacddi1Eg&s"
+                alt="Profile"
+              />
             </Link>
           </div>
           <div
@@ -142,34 +169,42 @@ const Navbar = () => {
             id="navbar-search`}
           >
             <div className="flex justify-between">
-            <div className="relative mt-3 md:hidden">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                  />
-                </svg>
+              <div className="relative mt-3 md:hidden">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <svg
+                    className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                    />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  id="search-navbar"
+                  className="block p-2 pl-10 w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Search..."
+                />
               </div>
-              <input
-                type="text"
-                id="search-navbar"
-                className="block p-2 pl-10 w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search..."
-              />
+              <Link
+                to="/login"
+                className={`${
+                  user ? "hidden" : "md:hidden"
+                } self-start`}
+              >
+                <button className="bg-teal-600 rounded-full text-white h-10  my-3 px-4">
+                  Signin/Signup
+                </button>
+              </Link>
             </div>
-            <Link to='/login' className={`${user !== null? 'hidden':'md:hidden'} self-start`}>
-              <button className="bg-teal-600 rounded-full text-white h-10  my-3 px-4">Signin/Signup</button>
-            </Link></div>
             <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
                 <Link
@@ -182,7 +217,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="/"
+                  to="/about"
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-600 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   About
@@ -190,7 +225,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  tp="/"
+                  to="/products"
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   Products
@@ -198,7 +233,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  tp="/"
+                  to="/contact"
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-teal-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   Contact
@@ -214,7 +249,6 @@ const Navbar = () => {
 
 export default Navbar;
 
-
 // links are not assigned to anywhere
-// cart icon should have number if its not empty and nothing otherwhise 
+// cart icon should have number if its not empty and nothing otherwhise
 // search is not working

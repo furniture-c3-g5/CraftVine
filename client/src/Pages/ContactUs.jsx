@@ -80,7 +80,7 @@ const ContactUs = () => {
 </svg>
 
 
-              <a href="tel:11111111111">+51 11111111111</a>
+              <a href="tel:0785847541">+962 78 584 7541</a>
             </div>
           </div>
           <div>

@@ -12,7 +12,7 @@ const Related = (category) => {
       .get("http://localhost:5000/products")
       .then((response) => {
         const allProducts = response.data;
-        const chairsProducts = allProducts.filter(product => product.category === "Chairs");
+        const chairsProducts = allProducts.filter(product => product.category ===category);
         setProducts(chairsProducts);
       })
       .catch((error) => {

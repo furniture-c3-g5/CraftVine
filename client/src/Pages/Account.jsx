@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import UserSideBar from "../Components/users/UserSideBar";
 import Profile from "../Components/users/Profile";
+import Wishlist from "../Components/users/Wishlist";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import OrderPage from "./Order";
+
 
 const Account = () => {
   const [user, setUser] = useState([]);
   const [page, setPage] = useState("profile");
   const [photoPreview, setPhotoPreview] = useState(null);
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
+  const history = useNavigate();
 
   // fetch products
   useEffect(() => {
@@ -32,7 +38,8 @@ const Account = () => {
   // }, [user.profile_image_name]);
 
   function logout(){
-
+    removeCookie('token');
+    history("/");
   }
 
   // to open and close sidebar
@@ -157,12 +164,6 @@ const Account = () => {
                   >
                     <span className="mx-2 text-sm font-medium">Profile</span>
                   </button>
-
-                  <button className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
-                    <span className="mx-2 text-sm font-medium">
-                      Payment Options
-                    </span>
-                  </button>
                 </div>
 
                 <div className="space-y-3 ">
@@ -170,16 +171,8 @@ const Account = () => {
                     Orders
                   </label>
 
-                  <button className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
+                  <button onClick={() => setPage("orders")} className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
                     <span className="mx-2 text-sm font-medium">Orders</span>
-                  </button>
-
-                  <button className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
-                    <span className="mx-2 text-sm font-medium">Returns</span>
-                  </button>
-
-                  <button className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
-                    <span className="mx-2 text-sm font-medium">Canceled</span>
                   </button>
                 </div>
 
@@ -188,11 +181,11 @@ const Account = () => {
                     Wishlist
                   </label>
 
-                  <button className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
+                  <button onClick={() => setPage("wishlist")} className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
                     <span className="mx-2 text-sm font-medium">Wishlist</span>
                   </button>
 
-                  <button className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
+                  <button onClick={() => setPage("cart")} className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
                     <span className="mx-2 text-sm font-medium">Cart</span>
                   </button>
                 </div>
@@ -225,6 +218,15 @@ const Account = () => {
       {/* content */}
       <div className={`${page == "profile" ? "block" : "hidden"} w-full`}>
         <Profile />
+      </div>
+      <div className={`${page == "wishlist" ? "block" : "hidden"} w-full`}>
+        <Wishlist />
+      </div>
+      <div className={`${page == "cart" ? "block" : "hidden"} w-full`}>
+        {/* <Wishlist /> */}
+      </div>
+      <div className={`${page == "orders" ? "block" : "hidden"} w-full`}>
+        <OrderPage />
       </div>
     </div>
   );
